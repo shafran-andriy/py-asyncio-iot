@@ -25,7 +25,7 @@ async def main() -> None:
     #     Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"),
     # ]
     wake_up_program = [
-        asyncio.create_task(asyncio.to_thread(Message(hue_light_id, MessageType.SWITCH_ON))),
+        asyncio. (asyncio.to_thread(Message(hue_light_id, MessageType.SWITCH_ON))),
         asyncio.create_task(asyncio.to_thread(Message(speaker_id, MessageType.SWITCH_ON))),
         asyncio.create_task(asyncio.to_thread(Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"))),
     ]
