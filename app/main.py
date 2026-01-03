@@ -33,8 +33,13 @@ async def main() -> None:
     ]
 
     # run the programs
-    wake_results = await asyncio.gather(*(msg() for msg in wake_up_program))
-    sleep_results = await asyncio.gather(*(msg() for msg in sleep_program))
+    await asyncio.gather(
+    service.run_program(wake_up_program),
+    service.run_program(sleep_program)
+    )
+    
+    # wake_results = await asyncio.gather(*(msg() for msg in wake_up_program))
+    # sleep_results = await asyncio.gather(*(msg() for msg in sleep_program))
     
     # asyncio.create_task(service.run_program(wake_up_program))
     # asyncio.create_task(service.run_program(sleep_program))
