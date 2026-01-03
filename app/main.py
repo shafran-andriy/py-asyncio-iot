@@ -38,13 +38,6 @@ async def main() -> None:
     service.run_program(sleep_program)
     )
     
-    # wake_results = await asyncio.gather(*(msg() for msg in wake_up_program))
-    # sleep_results = await asyncio.gather(*(msg() for msg in sleep_program))
-    
-    # asyncio.create_task(service.run_program(wake_up_program))
-    # asyncio.create_task(service.run_program(sleep_program))
-
-
 if __name__ == "__main__":
     start = time.perf_counter()
     asyncio.run(main())
