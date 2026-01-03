@@ -18,28 +18,26 @@ async def main() -> None:
     speaker_id = service.register_device(speaker)
     toilet_id = service.register_device(toilet)
 
-    # create a few programs
-    # wake_up_program = [
-    #     Message(hue_light_id, MessageType.SWITCH_ON),
-    #     Message(speaker_id, MessageType.SWITCH_ON),
-    #     Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"),
-    # ]
+      # create a few programs
     wake_up_program = [
-        asyncio. (asyncio.to_thread(Message(hue_light_id, MessageType.SWITCH_ON))),
-        asyncio.create_task(asyncio.to_thread(Message(speaker_id, MessageType.SWITCH_ON))),
-        asyncio.create_task(asyncio.to_thread(Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"))),
+        Message(hue_light_id, MessageType.SWITCH_ON),
+        Message(speaker_id, MessageType.SWITCH_ON),
+        Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"),
     ]
-
+    
     sleep_program = [
-        asyncio.create_task(asyncio.to_thread(Message(hue_light_id, MessageType.SWITCH_OFF))),
-        asyncio.create_task(asyncio.to_thread(Message(speaker_id, MessageType.SWITCH_OFF))),
-        asyncio.create_task(asyncio.to_thread(Message(toilet_id, MessageType.FLUSH))),
-        asyncio.create_task(asyncio.to_thread(Message(toilet_id, MessageType.CLEAN))),
+        Message(hue_light_id, MessageType.SWITCH_OFF),
+        Message(speaker_id, MessageType.SWITCH_OFF),
+        Message(toilet_id, MessageType.FLUSH),
+        Message(toilet_id, MessageType.CLEAN),
     ]
 
     # run the programs
-    asyncio.create_task(service.run_program(wake_up_program))
-    asyncio.create_task(service.run_program(sleep_program))
+    wake_results = await asyncio.gather(*(msg() for msg in wake_up_program))
+    sleep_results = await asyncio.gather(*(msg() for msg in sleep_program))
+    
+    # asyncio.create_task(service.run_program(wake_up_program))
+    # asyncio.create_task(service.run_program(sleep_program))
 
 
 if __name__ == "__main__":
